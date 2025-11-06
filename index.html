@@ -1,62 +1,76 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Dashboard – FRESH</title>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Dashboard - FRESH</title>
 <link rel="stylesheet" href="/assets/styles.css"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script defer src="/assets/app.js"></script>
-</head>
-<body><div class="layout">
+</head><body>
 
-    <aside>
-      <div class="brand"><span class="logo"></span> FRESH <small style="color:#a6a8b2;font-size:12px;margin-inline-start:6px">After-Sales</small></div>
-      <nav class="nav">
-        <h6>لوحة التحكم</h6>
-        <a href="/index.html" class="active">الصفحة الرئيسية</a>
-        <h6>العمليات</h6>
-        <a href="/pages/technicians.html" class="">الفنيون</a>
-        <a href="/pages/tickets.html" class="">البلاغات</a>
-        <a href="/pages/inventory.html" class="">المخازن وقطع الغيار</a>
-        <a href="/pages/finance.html" class="">المالية</a>
-        <h6>الدعم</h6>
-        <a href="/pages/training.html" class="">التدريب</a>
-        <a href="/pages/admin.html" class="">الإدارة</a>
-        <a href="/pages/settings.html" class="">الإعدادات</a>
-        <h6>التقارير</h6>
-        <a href="/pages/reports/index.html" class="">Reports Index</a>
-      </nav>
-      <div class="footer">v22 • Static Prototype</div>
-    </aside>
-    
-<main>
+<header>
+  <div class="logo"><span class="dot"></span><span>FRESH</span> <small class="mono" style="color:#9aa0a6">After‑Sales</small></div>
+  <nav>
+    <a href="/index.html" class='active'>Dashboard</a>
+    <a href="/pages/reports/index.html" >Reports</a>
+    <a href="/pages/tech_app.html" >Technician</a>
+    <a href="/pages/customer_app.html" >Customer</a>
+    <a href="/pages/inventory.html" >Inventory</a>
+    <a href="/pages/training.html" >Training</a>
+    <a href="/pages/admin.html" >Admin</a>
+  </nav>
+</header>
 
-<div class="filters">
-  <select><option>كل المحافظات</option><option>القاهرة</option><option>الجيزة</option><option>الإسكندرية</option></select>
-  <select><option>كل المنتجات</option><option>ثلاجة ديچيتال</option><option>ديب فريزر</option><option>مبرد مياه</option></select>
-  <input placeholder="بحث..."/><button class="btn">تطبيق</button>
+<div class="container">
+
+<div class="panel">
+  <div class="filters">
+    <select id="f-region"></select>
+    <select id="f-device"></select>
+    <select id="f-branch"></select>
+    <select id="f-month"></select>
+    <button class="btn" id="apply">Apply Filters</button>
+  </div>
+  <div class="grid cols-4">
+    <div class="panel kpi"><div class="v" id="kpi-csat">--%</div><div><div class="l">Avg. CSAT</div></div></div>
+    <div class="panel kpi"><div class="v" id="kpi-ontime">--%</div><div><div class="l">On‑time</div></div></div>
+    <div class="panel kpi"><div class="v" id="kpi-revisit">--%</div><div><div class="l">Revisit</div></div></div>
+    <div class="panel kpi"><div class="v" id="kpi-tickets">--</div><div><div class="l">Tickets</div></div></div>
+  </div>
 </div>
-<section class="kpis">
-  <div class="card"><div class="muted">Open Tickets</div><h3>42</h3></div>
-  <div class="card"><div class="muted">SLA</div><h3>96.3%</h3></div>
-  <div class="card"><div class="muted">CSAT</div><h3>4.6/5</h3></div>
-  <div class="card"><div class="muted">Spare Cost</div><h3>1.7M</h3></div>
-</section>
-<div class="grid2">
-  <div class="card"><div class="muted">Tickets Trend</div><canvas id="c_t1" height="120"></canvas></div>
-  <div class="card"><div class="muted">WIP</div><canvas id="c_t2" height="120"></canvas></div>
+
+<div class="grid cols-2" style="margin-top:16px">
+  <div class="panel chart-card"><canvas id="trend-csat"></canvas></div>
+  <div class="panel chart-card"><canvas id="aging"></canvas></div>
 </div>
-<div class="card" style="margin-top:12px">
-  <div class="muted">Map – Density</div>
-  <div id="map_dash" style="height:360px;border-radius:10px;overflow:hidden"></div>
-</div>
+
 <script>
-new Chart(document.getElementById('c_t1'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[{data:[210,250,260,280,300,320,310,350,370,390,410,430],borderColor:'#E11D2A',tension:.3}]},options:{plugins:{legend:{display:false}}}});
-new Chart(document.getElementById('c_t2'),{type:'doughnut',data:{labels:['Scheduled','En route','In progress','On hold'],datasets:[{data:[24,15,12,4],backgroundColor:['#64748b','#22c55e','#eab308','#ef4444']}]} ,options:{plugins:{legend:{position:'bottom'}}}});
-const map=L.map('map_dash',{scrollWheelZoom:false}).setView([30.0444,31.2357],6);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-[[30.05,31.23],[31.2,30.0],[30.79,30.99],[31.04,31.38],[30.01,31.45]].forEach(p=>L.circleMarker(p,{radius:6,color:'#E11D2A'}).addTo(map));
-</script>
+let ch1, ch2;
+function refresh(){
+  const f = readFilters();
+  const rows = FRESH.applyFilters(FRESH.tickets, f);
 
-</main></div></body></html>
+  // KPIs
+  const csatAvg = (rows.reduce((a,b)=>a+b.csat,0)/(rows.length||1)).toFixed(1);
+  document.getElementById('kpi-csat').textContent = csatAvg + '%';
+  document.getElementById('kpi-ontime').textContent = FRESH.pctOnTime(rows) + '%';
+  document.getElementById('kpi-revisit').textContent = FRESH.pctRevisit(rows) + '%';
+  document.getElementById('kpi-tickets').textContent = rows.length;
+
+  // Charts
+  const trend = FRESH.monthlyTrend(rows, r=>r.csat);
+  ch1 && ch1.destroy(); ch1 = mkLine(document.getElementById('trend-csat'), FRESH.months, trend, '#1e88e5');
+
+  const aging = FRESH.agingBuckets(rows);
+  ch2 && ch2.destroy(); ch2 = mkDoughnut(document.getElementById('aging'), Object.keys(aging), Object.values(aging));
+}
+document.getElementById('apply').addEventListener('click', refresh);
+document.addEventListener('DOMContentLoaded', () => setTimeout(refresh,100));
+</script>
+</div>
+<footer><small class="mono">FRESH After‑Sales • Static v24</small></footer>
+</body></html>

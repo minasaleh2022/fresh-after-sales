@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Inventory</title>
+<title>Pages Index</title>
 <link rel="stylesheet" href="/assets/styles.css"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 <header>
   <div class="logo"><span class="dot"></span><span>FRESH</span> <small class="mono" style="color:#9aa0a6">After‑Sales</small></div>
   <nav>
-    <a href="/index.html" >Dashboard</a>
+    <a href="/index.html" class='active'>Dashboard</a>
     <a href="/pages/reports/index.html" >Reports</a>
     <a href="/pages/tech_app.html" >Technician</a>
     <a href="/pages/customer_app.html" >Customer</a>
@@ -28,28 +28,14 @@
 <div class="container">
 
 <div class="panel">
-  <h2>Inventory</h2>
-  <div class="filters">
-    <select id="f-device"></select>
-    <button class="btn" id="apply">Apply</button>
-  </div>
-  <table id="tbl"><thead><tr><th>Part</th><th>Device</th><th>Stock</th><th>Price</th></tr></thead><tbody></tbody></table>
+  <h2>Pages</h2>
+  <ul>
+    <li><a href="/index.html">Dashboard</a></li>
+    <li><a href="/pages/reports/index.html">Reports</a></li>
+    <li><a href="/pages/tech_app.html">Technician</a></li>
+    <li><a href="/pages/customer_app.html">Customer</a></li>
+    <li><a href="/pages/inventory.html">Inventory</a></li>
+    <li><a href="/pages/training.html">Training</a></li>
+    <li><a href="/pages/admin.html">Admin</a></li>
+  </ul>
 </div>
-<script>
-function refreshInv(){
-  const d = document.getElementById('f-device').value || 'All';
-  const items = FRESH.deviceTypes.map((name,i)=>({name:`P-${i+1}`, device:name, stock: 40+i*7, price: 200+i*50}))
-    .filter(x=> d==='All' || x.device===d);
-  const tbody = document.querySelector('#tbl tbody'); tbody.innerHTML='';
-  items.forEach(x=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${x.name}</td><td>${x.device}</td><td>${x.stock}</td><td>${x.price}</td>`;
-    tbody.appendChild(tr);
-  });
-}
-document.getElementById('apply').addEventListener('click', refreshInv);
-document.addEventListener('DOMContentLoaded', ()=>setTimeout(refreshInv,100));
-</script>
-</div>
-<footer><small class="mono">FRESH After‑Sales • Static v24</small></footer>
-</body></html>

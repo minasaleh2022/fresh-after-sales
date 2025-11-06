@@ -1,40 +1,42 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Administration – FRESH</title>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin</title>
 <link rel="stylesheet" href="/assets/styles.css"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script defer src="/assets/app.js"></script>
-</head>
-<body><div class="layout">
+</head><body>
 
-    <aside>
-      <div class="brand"><span class="logo"></span> FRESH <small style="color:#a6a8b2;font-size:12px;margin-inline-start:6px">After-Sales</small></div>
-      <nav class="nav">
-        <h6>لوحة التحكم</h6>
-        <a href="/index.html" class="">الصفحة الرئيسية</a>
-        <h6>العمليات</h6>
-        <a href="/pages/technicians.html" class="">الفنيون</a>
-        <a href="/pages/tickets.html" class="">البلاغات</a>
-        <a href="/pages/inventory.html" class="">المخازن وقطع الغيار</a>
-        <a href="/pages/finance.html" class="">المالية</a>
-        <h6>الدعم</h6>
-        <a href="/pages/training.html" class="">التدريب</a>
-        <a href="/pages/admin.html" class="active">الإدارة</a>
-        <a href="/pages/settings.html" class="">الإعدادات</a>
-        <h6>التقارير</h6>
-        <a href="/pages/reports/index.html" class="">Reports Index</a>
-      </nav>
-      <div class="footer">v22 • Static Prototype</div>
-    </aside>
-    
-<main>
+<header>
+  <div class="logo"><span class="dot"></span><span>FRESH</span> <small class="mono" style="color:#9aa0a6">After‑Sales</small></div>
+  <nav>
+    <a href="/index.html" >Dashboard</a>
+    <a href="/pages/reports/index.html" >Reports</a>
+    <a href="/pages/tech_app.html" >Technician</a>
+    <a href="/pages/customer_app.html" >Customer</a>
+    <a href="/pages/inventory.html" >Inventory</a>
+    <a href="/pages/training.html" >Training</a>
+    <a href="/pages/admin.html" class='active'>Admin</a>
+  </nav>
+</header>
 
-<h2>الإدارة والصلاحيات</h2>
-<div class="card"><div class="muted">أدوار نظام Demo</div>
-<p><span class="badge">مدير عام</span> <span class="badge">مشرف أول</span> <span class="badge">مشرف</span> <span class="badge">أمين مخزن</span> <span class="badge">مدير مخزن</span> <span class="badge">مشرف مخزن</span> <span class="badge">مخزن توالف</span> <span class="badge">مركز خدمة</span></p>
+<div class="container">
+
+<div class="panel"><h2>Admin & RBAC</h2>
+<p>أدوار نموذجية: مدير، مشرف أول، مشرف، مخازن، مالية، دعم.</p>
+<table>
+<tr><th>Role</th><th>Permissions</th></tr>
+<tr><td>Manager</td><td>Full Access</td></tr>
+<tr><td>Supervisor</td><td>Assign Tickets, View Reports</td></tr>
+<tr><td>Inventory</td><td>Parts CRUD, Stock</td></tr>
+<tr><td>Finance</td><td>Invoices, Costs</td></tr>
+</table>
 </div>
-
-</main></div></body></html>
+</div>
+<footer><small class="mono">FRESH After‑Sales • Static v24</small></footer>
+</body></html>

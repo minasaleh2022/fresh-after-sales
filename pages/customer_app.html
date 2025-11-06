@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Inventory</title>
+<title>Customer_App</title>
 <link rel="stylesheet" href="/assets/styles.css"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -27,28 +27,29 @@
 
 <div class="container">
 
-<div class="panel">
-  <h2>Inventory</h2>
-  <div class="filters">
-    <select id="f-device"></select>
-    <button class="btn" id="apply">Apply</button>
+<div class="panel"><h2>Customer – Create Ticket (Demo)</h2>
+<div class="grid cols-2">
+  <div class="panel">
+    <label>Region</label><br/><select id="c-region"></select><br/><br/>
+    <label>Device</label><br/><select id="c-device"></select><br/><br/>
+    <label>Description</label><br/><input id="c-desc" style="width:100%;padding:8px;background:#141518;border:1px solid #2a2c31;border-radius:8px;color:#fff"/>
+    <br/><br/><button class="btn" id="c-submit">Create</button>
   </div>
-  <table id="tbl"><thead><tr><th>Part</th><th>Device</th><th>Stock</th><th>Price</th></tr></thead><tbody></tbody></table>
+  <div class="panel"><h3>Preview</h3><pre id="prev" style="white-space:pre-wrap"></pre></div>
+</div>
 </div>
 <script>
-function refreshInv(){
-  const d = document.getElementById('f-device').value || 'All';
-  const items = FRESH.deviceTypes.map((name,i)=>({name:`P-${i+1}`, device:name, stock: 40+i*7, price: 200+i*50}))
-    .filter(x=> d==='All' || x.device===d);
-  const tbody = document.querySelector('#tbl tbody'); tbody.innerHTML='';
-  items.forEach(x=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${x.name}</td><td>${x.device}</td><td>${x.stock}</td><td>${x.price}</td>`;
-    tbody.appendChild(tr);
+function fill(){
+  ['c-region','c-device'].forEach(id=>{
+    const el = document.getElementById(id);
+    const arr = id==='c-region'? FRESH.regions : FRESH.deviceTypes;
+    el.innerHTML = arr.map(x=>`<option>${x}</option>`).join("");
   });
 }
-document.getElementById('apply').addEventListener('click', refreshInv);
-document.addEventListener('DOMContentLoaded', ()=>setTimeout(refreshInv,100));
+document.getElementById('c-submit').addEventListener('click', ()=>{
+  const obj = { region: c-region.value, device: c-device.value, desc: c-desc.value || '' };
+});
+document.addEventListener('DOMContentLoaded', ()=>{ fill(); });
 </script>
 </div>
 <footer><small class="mono">FRESH After‑Sales • Static v24</small></footer>
