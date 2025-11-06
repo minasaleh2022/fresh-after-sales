@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Inventory – FRESH</title>
+<link rel="stylesheet" href="/assets/styles.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script defer src="/assets/app.js"></script>
+</head>
+<body><div class="layout">
+
+    <aside>
+      <div class="brand"><span class="logo"></span> FRESH <small style="color:#a6a8b2;font-size:12px;margin-inline-start:6px">After-Sales</small></div>
+      <nav class="nav">
+        <h6>لوحة التحكم</h6>
+        <a href="/index.html" class="">الصفحة الرئيسية</a>
+        <h6>العمليات</h6>
+        <a href="/pages/technicians.html" class="">الفنيون</a>
+        <a href="/pages/tickets.html" class="">البلاغات</a>
+        <a href="/pages/inventory.html" class="active">المخازن وقطع الغيار</a>
+        <a href="/pages/finance.html" class="">المالية</a>
+        <h6>الدعم</h6>
+        <a href="/pages/training.html" class="">التدريب</a>
+        <a href="/pages/admin.html" class="">الإدارة</a>
+        <a href="/pages/settings.html" class="">الإعدادات</a>
+        <h6>التقارير</h6>
+        <a href="/pages/reports/index.html" class="">Reports Index</a>
+      </nav>
+      <div class="footer">v22 • Static Prototype</div>
+    </aside>
+    
+<main>
+
+<h2>المخزون وقطع الغيار</h2>
+<div class="kpis">
+  <div class="card"><div class="muted">تكلفة هذا الشهر</div><h3>412K</h3></div>
+  <div class="card"><div class="muted">أوامر شراء</div><h3>18</h3></div>
+  <div class="card"><div class="muted">توالف مصروفة</div><h3>51</h3></div>
+  <div class="card"><div class="muted">قطع لكل بلاغ</div><h3>1.3</h3></div>
+</div>
+<div class="grid2">
+  <div class="card"><div class="muted">Spare Cost (6m)</div><canvas id="i_cost" height="120"></canvas></div>
+  <div class="card"><div class="muted">Stock Level</div><canvas id="i_stock" height="120"></canvas></div>
+</div>
+<div class="card" style="margin-top:12px">
+  <table class="table">
+    <thead><tr><th>الكود</th><th>الاسم</th><th>موديلات مناسبة</th><th>الرصيد</th><th>حالة</th></tr></thead>
+    <tbody>
+      <tr><td>PRT-REF-001</td><td>ثرموستات</td><td>ثلاجات</td><td>230</td><td><span class="badge ok">متوفر</span></td></tr>
+      <tr><td>PRT-REF-011</td><td>كمبروسر 1/5</td><td>ديب فريزر</td><td>9</td><td><span class="badge warn">إعادة طلب</span></td></tr>
+      <tr><td>PRT-WTR-021</td><td>فلتر مياه</td><td>مبرد مياه</td><td>560</td><td><span class="badge ok">متوفر</span></td></tr>
+    </tbody>
+  </table>
+</div>
+<script>
+new Chart(document.getElementById('i_cost'),{type:'bar',data:{labels:['May','Jun','Jul','Aug','Sep','Oct'],datasets:[{data:[60,72,80,70,65,65],backgroundColor:'#E11D2A'}]},options:{plugins:{legend:{display:false}}}});
+new Chart(document.getElementById('i_stock'),{type:'bar',data:{labels:['PRT101','PRT102','PRT103','PRT104','PRT105'],datasets:[{label:'رصيد',data:[120,80,40,20,10],backgroundColor:'#64748b'}]}});
+</script>
+
+</main></div></body></html>

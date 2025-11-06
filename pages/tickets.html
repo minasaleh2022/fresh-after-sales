@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tickets – FRESH</title>
+<link rel="stylesheet" href="/assets/styles.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script defer src="/assets/app.js"></script>
+</head>
+<body><div class="layout">
+
+    <aside>
+      <div class="brand"><span class="logo"></span> FRESH <small style="color:#a6a8b2;font-size:12px;margin-inline-start:6px">After-Sales</small></div>
+      <nav class="nav">
+        <h6>لوحة التحكم</h6>
+        <a href="/index.html" class="">الصفحة الرئيسية</a>
+        <h6>العمليات</h6>
+        <a href="/pages/technicians.html" class="">الفنيون</a>
+        <a href="/pages/tickets.html" class="active">البلاغات</a>
+        <a href="/pages/inventory.html" class="">المخازن وقطع الغيار</a>
+        <a href="/pages/finance.html" class="">المالية</a>
+        <h6>الدعم</h6>
+        <a href="/pages/training.html" class="">التدريب</a>
+        <a href="/pages/admin.html" class="">الإدارة</a>
+        <a href="/pages/settings.html" class="">الإعدادات</a>
+        <h6>التقارير</h6>
+        <a href="/pages/reports/index.html" class="">Reports Index</a>
+      </nav>
+      <div class="footer">v22 • Static Prototype</div>
+    </aside>
+    
+<main>
+
+<h2>إدارة البلاغات</h2>
+<div class="kpis">
+  <div class="card"><div class="muted">أعطال مفتوحة</div><h3>42</h3></div>
+  <div class="card"><div class="muted">متوسط العمر</div><h3>1.8 يوم</h3></div>
+  <div class="card"><div class="muted">التزام بالمواعيد</div><h3>92%</h3></div>
+  <div class="card"><div class="muted">First Fix</div><h3>78%</h3></div>
+</div>
+<div class="grid2">
+  <div class="card"><div class="muted">Aging</div><canvas id="t_age" height="120"></canvas></div>
+  <div class="card"><div class="muted">Punctuality</div><canvas id="t_punc" height="120"></canvas></div>
+</div>
+<div class="card" style="margin-top:12px">
+  <table class="table">
+    <thead><tr><th>رقم</th><th>العميل</th><th>المنتج</th><th>المحافظة</th><th>الحالة</th><th>عمر البلاغ</th></tr></thead>
+    <tbody>
+      <tr><td>10001</td><td>محمد</td><td>ثلاجة ديچيتال</td><td>القاهرة</td><td><span class="badge">مجدول</span></td><td>2d</td></tr>
+      <tr><td>10002</td><td>مينا</td><td>ديب فريزر رأسي</td><td>الجيزة</td><td><span class="badge">قيد التنفيذ</span></td><td>1d</td></tr>
+      <tr><td>10003</td><td>هدى</td><td>مبرد مياه</td><td>الإسكندرية</td><td><span class="badge ok">مكتمل</span></td><td>3d</td></tr>
+    </tbody>
+  </table>
+</div>
+<script>
+new Chart(document.getElementById('t_age'),{type:'bar',data:{labels:['0-2','3-5','6-10','>10'],datasets:[{data:[50,28,14,6],backgroundColor:'#E11D2A'}]},options:{plugins:{legend:{display:false}}}});
+new Chart(document.getElementById('t_punc'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],datasets:[{data:[89,92,91,93,94,92],borderColor:'#22c55e',tension:.3}]},options:{plugins:{legend:{display:false}},scales:{y:{min:0,max:100}}}});
+</script>
+
+</main></div></body></html>

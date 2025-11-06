@@ -1,1 +1,60 @@
-<h1>CSAT حسب المنطقة</h1><div id='filters'></div><div class='card'><svg class="svg" viewBox="0 0 760 260"><line x1="30" x2="730" y1="230.0" y2="230.0" stroke="#eee"/><line x1="30" x2="730" y1="180.0" y2="180.0" stroke="#eee"/><line x1="30" x2="730" y1="130.0" y2="130.0" stroke="#eee"/><line x1="30" x2="730" y1="80.0" y2="80.0" stroke="#eee"/><line x1="30" x2="730" y1="30.0" y2="30.0" stroke="#eee"/><rect x="34.0" y="70.9" width="132.0" height="159.1" fill="#16a34a" rx="6"/> <rect x="174.0" y="30.0" width="132.0" height="200.0" fill="#16a34a" rx="6"/> <rect x="314.0" y="50.5" width="132.0" height="179.5" fill="#16a34a" rx="6"/> <rect x="454.0" y="43.6" width="132.0" height="186.4" fill="#16a34a" rx="6"/> <rect x="594.0" y="32.3" width="132.0" height="197.7" fill="#16a34a" rx="6"/></svg></div><div class='card'><table class='table'><thead><tr><th>المنطقة</th><th>CSAT %</th></tr></thead><tbody id='rows'></tbody></table></div><script>window.pageBoot=function(){var render=function(){ document.getElementById('rows').innerHTML=(Mock.regions.map(r=>`<tr><td>${r}</td><td>${76+Math.floor(Math.random()*20)}%</td></tr>`).join('')); };var f=UI.makeFilters('filters'); f.onApply(function(){ render(); }); render();};</script>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CSAT حسب المحافظة – FRESH</title>
+<link rel="stylesheet" href="/assets/styles.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script defer src="/assets/app.js"></script>
+</head>
+<body><div class="layout">
+
+    <aside>
+      <div class="brand"><span class="logo"></span> FRESH <small style="color:#a6a8b2;font-size:12px;margin-inline-start:6px">After-Sales</small></div>
+      <nav class="nav">
+        <h6>لوحة التحكم</h6>
+        <a href="/index.html" class="">الصفحة الرئيسية</a>
+        <h6>العمليات</h6>
+        <a href="/pages/technicians.html" class="">الفنيون</a>
+        <a href="/pages/tickets.html" class="">البلاغات</a>
+        <a href="/pages/inventory.html" class="">المخازن وقطع الغيار</a>
+        <a href="/pages/finance.html" class="">المالية</a>
+        <h6>الدعم</h6>
+        <a href="/pages/training.html" class="">التدريب</a>
+        <a href="/pages/admin.html" class="">الإدارة</a>
+        <a href="/pages/settings.html" class="">الإعدادات</a>
+        <h6>التقارير</h6>
+        <a href="/pages/reports/index.html" class="active">Reports Index</a>
+      </nav>
+      <div class="footer">v22 • Static Prototype</div>
+    </aside>
+    
+<main>
+
+<h2>CSAT حسب المحافظة</h2>
+<div class="card">
+  <div class="muted">فلترة سريعة</div>
+  <div class="filters">
+    <select><option>كل المحافظات</option><option>القاهرة</option><option>الجيزة</option></select>
+    <select><option>كل المنتجات</option><option>ثلاجة</option><option>ديب فريزر</option></select>
+    <input placeholder="بحث..."><button class="btn">تطبيق</button>
+  </div>
+</div>
+<div class="grid2" style="margin-top:12px">
+  <div class="card"><canvas id="c_main" height="140"></canvas></div>
+  <div class="card">
+    <table class="table"><thead><tr><th>المحور</th><th>القيمة</th><th>ملاحظات</th></tr></thead>
+    <tbody><tr><td>عينة 1</td><td>92%</td><td>اتجاه تصاعدي</td></tr>
+           <tr><td>عينة 2</td><td>88%</td><td>مستقر</td></tr>
+           <tr><td>عينة 3</td><td>95%</td><td>تحسن</td></tr></tbody></table>
+  </div>
+</div>
+<script>
+new Chart(document.getElementById('c_main'),{
+  type:'bar',
+  data:{labels:['A','B','C','D','E','F'],datasets:[{data:[12,19,13,15,22,17],borderColor:'#E11D2A',backgroundColor:'rgba(225,29,42,.2)'}]}
+});
+</script>
+
+</main></div></body></html>
