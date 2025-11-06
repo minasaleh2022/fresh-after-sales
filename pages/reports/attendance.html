@@ -1,0 +1,42 @@
+<!doctype html>
+<h1>الحضور والانصراف</h1>
+<div id="filters"></div>
+<div class="grid cols-2">
+  <div class="card">
+    <div class="small">تسجيل حضور باللوكيشن وبصمة الوجه + الإجازات</div>
+    <div style="margin-top:10px" class="flex">
+      <button class="btn" onclick="alert('تم تسجيل الحضور باللوكيشن + التحقق بالوجه (Mock).')">تسجيل حضور الآن</button>
+      <button class="btn" onclick="alert('تم تسجيل الانصراف (Mock).')">تسجيل انصراف</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="small">ملخّص الشهر</div>
+    <table class="table">
+      <thead><tr><th>اليوم</th><th>حضور</th><th>وقت الدخول</th><th>الخروج</th><th>تأخير</th></tr></thead>
+      <tbody id="att-rows"></tbody>
+    </table>
+  </div>
+</div>
+<div class="card">
+  <h3>الإجازات</h3>
+  <table class="table">
+    <thead><tr><th>التاريخ</th><th>النوع</th><th>الحالة</th></tr></thead>
+    <tbody>
+      <tr><td>2025-11-03</td><td>عارضة</td><td><span class="badge">مقبول</span></td></tr>
+      <tr><td>2025-11-14</td><td>سنوي</td><td><span class="badge">قيد المراجعة</span></td></tr>
+    </tbody>
+  </table>
+</div>
+<script>
+window.pageBoot = function(){
+  var f = UI.makeFilters('filters'); f.onApply(()=>alert('تم تطبيق فلاتر الحضور'));
+  // Fill month mock
+  var days = Array.from({length: 14}).map((_,i)=>{
+    const d = (i+1).toString().padStart(2,'0');
+    const late = Math.random()<0.3 ? (5+Math.floor(Math.random()*20)) : 0;
+    const inT = late? ('09:'+(10+late)) : '09:05';
+    return `<tr><td>2025-11-${d}</td><td>${late? 'حاضر (متأخر)': 'حاضر'}</td><td>${inT}</td><td>17:10</td><td>${late? late+' د.': '-'}</td></tr>`;
+  }).join('');
+  document.getElementById('att-rows').innerHTML = days;
+};
+</script>

@@ -1,0 +1,32 @@
+<!doctype html>
+<h1>الالتزام بالمواعيد</h1>
+<div id="filters"></div>
+<div class="card">
+  <h3>On-Time Arrival % حسب المنطقة</h3>
+  <canvas id="chart-ontime" height="180"></canvas>
+</div>
+<div class="card">
+  <table class="table">
+    <thead><tr><th>المنطقة</th><th>On-Time %</th><th>الزيارات</th></tr></thead>
+    <tbody id="ontime-rows"></tbody>
+  </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+window.pageBoot = function(){
+  var f = UI.makeFilters('filters'); f.onApply(()=>render());
+  function render(){
+    const ctx = document.getElementById('chart-ontime');
+    const labels = Mock.regions;
+    const vals = labels.map(_=> 82 + Math.floor(Math.random()*14));
+    if (window._ontimeChart) window._ontimeChart.destroy();
+    window._ontimeChart = new Chart(ctx, {
+      type: 'line',
+      data: { labels, datasets: [{ label: 'On-Time %', data: vals, tension:.35 }] },
+      options: { responsive:true, plugins:{legend:{display:false}}, scales:{y:{min:70,max:100}} }
+    });
+    document.getElementById('ontime-rows').innerHTML = labels.map((r,i)=>`<tr><td>${r}</td><td>${vals[i]}%</td><td>${(600+Math.floor(Math.random()*800)).toLocaleString('ar-EG')}</td></tr>`).join('');
+  }
+  render();
+};
+</script>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Fresh Admin • Ultra v20</title>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <aside>
+    <div class="brand">
+      <img src="assets/img/logo_fresh.svg" alt="Fresh"/>
+      <div class="name">Fresh Admin</div>
+    </div>
+    <nav class="nav">
+      <a href="#/dashboard">📊 لوحة المؤشرات</a>
+      <div class="sec">التقارير الأساسية</div>
+      <a href="#/reports/csat-device">😊 CSAT حسب الجهاز</a>
+      <a href="#/reports/csat-branch">😊 CSAT حسب الفرع</a>
+      <a href="#/reports/csat-region">😊 CSAT حسب المنطقة</a>
+      <a href="#/reports/csat-trend">📈 CSAT Trend</a>
+      <a href="#/reports/on-time">⏱️ الالتزام بالمواعيد</a>
+      <a href="#/reports/ffr">🧩 First Fix Rate</a>
+      <a href="#/reports/revisit">🔁 إعادة الزيارة</a>
+      <a href="#/reports/aging-drilldown">⏳ Aging Drilldown</a>
+      <a href="#/reports/slas">🛡️ SLA</a>
+      <div class="sec">التكلفة والمخزون</div>
+      <a href="#/reports/spare-cost">🧾 Spare Parts Cost</a>
+      <a href="#/reports/inventory">🏷️ أرصدة المخزون</a>
+      <a href="#/reports/low-stock">⚠️ إعادة الطلب</a>
+      <a href="#/reports/damaged">🗑️ التوالف</a>
+      <a href="#/reports/parts-aging">📦 Parts Aging</a>
+      <div class="sec">تشغيل ميداني</div>
+      <a href="#/reports/wip">🛠️ Work-in-Progress</a>
+      <a href="#/reports/attendance">🕒 حضور الفنيين</a>
+      <a href="#/reports/dispatch-geo">🗺️ توزيع جغرافي</a>
+      <a href="#/reports/centers">🏢 مراكز الخدمة</a>
+      <a href="#/reports/heatmap-governorates">🔥 Heatmap المحافظات</a>
+      <div class="sec">وحدات وتكوين</div>
+      <a href="#/tech/hub">🛠️ وحدة الفني</a>
+      <a href="#/tech/payroll">💳 كشف الراتب</a>
+      <a href="#/customer/app">👤 واجهة العميل</a>
+      <a href="#/admin/rbac">🔐 الصلاحيات (RBAC)</a>
+      <a href="#/admin/settings">⚙️ الإعدادات</a>
+      <a href="#/admin/exports">📤 التصدير</a>
+      <a href="#/ai/diagnostics">🤖 AI Diagnostics</a>
+      <div class="sec">التدريب</div>
+      <a href="#/training/trainer">🎓 فعالية المدربين</a>
+    </nav>
+    <footer>v20p1 • 2025-11-06</footer>
+  </aside>
+  <main id="app"></main>
+
+  <script src="assets/js/mock.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    function load(route){
+      const map = {
+        '#/dashboard':'pages/dashboard.html',
+
+        '#/reports/csat-device':'pages/reports/csat_device.html',
+        '#/reports/csat-branch':'pages/reports/csat_branch.html',
+        '#/reports/csat-region':'pages/reports/csat_region.html',
+        '#/reports/csat-trend':'pages/reports/csat_trend.html',
+        '#/reports/on-time':'pages/reports/on_time.html',
+        '#/reports/ffr':'pages/reports/first_fix.html',
+        '#/reports/revisit':'pages/reports/revisit.html',
+        '#/reports/aging-drilldown':'pages/reports/aging_drilldown.html',
+        '#/reports/slas':'pages/reports/slas.html',
+        '#/reports/spare-cost':'pages/reports/spare_parts_cost.html',
+        '#/reports/inventory':'pages/reports/inventory.html',
+        '#/reports/low-stock':'pages/reports/low_stock.html',
+        '#/reports/damaged':'pages/reports/damaged.html',
+        '#/reports/parts-aging':'pages/reports/parts_aging.html',
+        '#/reports/wip':'pages/reports/wip.html',
+        '#/reports/attendance':'pages/reports/attendance.html',
+        '#/reports/dispatch-geo':'pages/reports/dispatch_geo.html',
+        '#/reports/centers':'pages/reports/centers.html',
+        '#/reports/heatmap-governorates':'pages/reports/heatmap_governorates.html',
+
+        '#/tech/hub':'pages/tech/hub.html',
+        '#/tech/payroll':'pages/tech/payroll.html',
+        '#/customer/app':'pages/customer/app.html',
+
+        '#/admin/rbac':'pages/admin/rbac.html',
+        '#/admin/settings':'pages/admin/settings.html',
+        '#/admin/exports':'pages/admin/exports.html',
+        '#/ai/diagnostics':'pages/ai/diagnostics.html',
+        '#/training/trainer':'pages/training/trainer.html'
+      };
+      const url = map[route] || map['#/dashboard'];
+      fetch(url).then(r=>r.text()).then(html=>{
+        document.getElementById('app').innerHTML = html;
+        if (window.pageBoot) window.pageBoot(route);
+        document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('active', a.getAttribute('href')===route));
+      });
+    }
+    window.addEventListener('hashchange', ()=>load(location.hash));
+    window.addEventListener('load', ()=>{ if(!location.hash) location.hash='#/dashboard'; load(location.hash); });
+  </script>
+</body>
+</html>
