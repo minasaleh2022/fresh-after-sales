@@ -1,76 +1,79 @@
-<!doctype html>
-<html lang="en"><head>
+<!doctype html><html lang="ar" dir="rtl">
+<head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Dashboard - FRESH</title>
-<link rel="stylesheet" href="/assets/styles.css"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script defer src="/assets/app.js"></script>
-</head><body>
-
-<header>
-  <div class="logo"><span class="dot"></span><span>FRESH</span> <small class="mono" style="color:#9aa0a6">After‑Sales</small></div>
-  <nav>
-    <a href="/index.html" class='active'>Dashboard</a>
-    <a href="/pages/reports/index.html" >Reports</a>
-    <a href="/pages/tech_app.html" >Technician</a>
-    <a href="/pages/customer_app.html" >Customer</a>
-    <a href="/pages/inventory.html" >Inventory</a>
-    <a href="/pages/training.html" >Training</a>
-    <a href="/pages/admin.html" >Admin</a>
-  </nav>
-</header>
-
-<div class="container">
-
-<div class="panel">
-  <div class="filters">
-    <select id="f-region"></select>
-    <select id="f-device"></select>
-    <select id="f-branch"></select>
-    <select id="f-month"></select>
-    <button class="btn" id="apply">Apply Filters</button>
+<title>FRESH After‑Sales • Dashboard</title>
+<link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <div class="brand"><span class="logo"></span> FRESH <span class="muted">After‑Sales</span></div>
+      <nav class="nav">
+        <a href="index.html">Dashboard</a>
+        <a href="pages/technician.html">Technician</a>
+        <a href="pages/customer.html">Customer</a>
+        <a href="pages/inventory.html">Inventory</a>
+        <a href="pages/training.html">Training</a>
+        <a href="pages/reports/index.html">Reports</a>
+        <a href="pages/admin.html">Admin</a>
+      </nav>
+    </div>
   </div>
-  <div class="grid cols-4">
-    <div class="panel kpi"><div class="v" id="kpi-csat">--%</div><div><div class="l">Avg. CSAT</div></div></div>
-    <div class="panel kpi"><div class="v" id="kpi-ontime">--%</div><div><div class="l">On‑time</div></div></div>
-    <div class="panel kpi"><div class="v" id="kpi-revisit">--%</div><div><div class="l">Revisit</div></div></div>
-    <div class="panel kpi"><div class="v" id="kpi-tickets">--</div><div><div class="l">Tickets</div></div></div>
+
+  <div class="container">
+    <div class="filters card" style="align-items:center;justify-content:space-between">
+      <div class="filters">
+        <select><option>All Branches</option><option>Cairo</option><option>Alex</option></select>
+        <select><option>All Devices</option><option>Refrigerator</option><option>Deep Freezer</option></select>
+        <input type="date"/><input type="date"/>
+      </div>
+      <div><button class="btn" onclick="applyDemoCharts()">Apply Filters</button></div>
+    </div>
+
+    <div class="grid" style="margin-top:16px">
+      <div class="card" style="grid-column:span 3">
+        <div class="kpi"><div class="icon">%</div><div><div class="value">96.3%</div><div class="muted">SLA (on‑time)</div></div></div>
+      </div>
+      <div class="card" style="grid-column:span 3">
+        <div class="kpi"><div class="icon">★</div><div><div class="value">4.6</div><div class="muted">Avg. CSAT</div></div></div>
+      </div>
+      <div class="card" style="grid-column:span 3">
+        <div class="kpi"><div class="icon">🛠</div><div><div class="value">1,284</div><div class="muted">Tickets (MTD)</div></div></div>
+      </div>
+      <div class="card" style="grid-column:span 3">
+        <div class="kpi"><div class="icon">↻</div><div><div class="value">6.8%</div><div class="muted">Revisit Rate</div></div></div>
+      </div>
+
+      <div class="card" style="grid-column:span 7">
+        <div class="section-title">Trend: SLA & CSAT (12 months)</div>
+        <div id="trendChart" class="canvas"></div>
+      </div>
+      <div class="card" style="grid-column:span 5">
+        <div class="section-title">Tickets by Device</div>
+        <div id="deviceChart" class="canvas"></div>
+      </div>
+
+      <div class="card" style="grid-column:span 12">
+        <div class="section-title">Top Regions</div>
+        <div id="regionChart" class="canvas"></div>
+      </div>
+
+      <div class="card" style="grid-column:span 12">
+        <div class="section-title">Open Tickets</div>
+        <table class="table">
+          <thead><tr><th>ID</th><th>Customer</th><th>Device</th><th>Region</th><th>Status</th><th>Age (d)</th></tr></thead>
+          <tbody>
+            <tr><td>#100245</td><td>Mostafa K.</td><td>REF 370L</td><td>Cairo</td><td><span class="badge">Assigned</span></td><td>1</td></tr>
+            <tr><td>#100246</td><td>Nada S.</td><td>DF Upright</td><td>Giza</td><td><span class="badge">Scheduled</span></td><td>2</td></tr>
+            <tr><td>#100247</td><td>Hossam E.</td><td>Water Dispenser</td><td>Alex</td><td><span class="badge" style="background:#fee2e2;color:#b91c1c">Aging</span></td><td>5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="grid cols-2" style="margin-top:16px">
-  <div class="panel chart-card"><canvas id="trend-csat"></canvas></div>
-  <div class="panel chart-card"><canvas id="aging"></canvas></div>
-</div>
-
-<script>
-let ch1, ch2;
-function refresh(){
-  const f = readFilters();
-  const rows = FRESH.applyFilters(FRESH.tickets, f);
-
-  // KPIs
-  const csatAvg = (rows.reduce((a,b)=>a+b.csat,0)/(rows.length||1)).toFixed(1);
-  document.getElementById('kpi-csat').textContent = csatAvg + '%';
-  document.getElementById('kpi-ontime').textContent = FRESH.pctOnTime(rows) + '%';
-  document.getElementById('kpi-revisit').textContent = FRESH.pctRevisit(rows) + '%';
-  document.getElementById('kpi-tickets').textContent = rows.length;
-
-  // Charts
-  const trend = FRESH.monthlyTrend(rows, r=>r.csat);
-  ch1 && ch1.destroy(); ch1 = mkLine(document.getElementById('trend-csat'), FRESH.months, trend, '#1e88e5');
-
-  const aging = FRESH.agingBuckets(rows);
-  ch2 && ch2.destroy(); ch2 = mkDoughnut(document.getElementById('aging'), Object.keys(aging), Object.values(aging));
-}
-document.getElementById('apply').addEventListener('click', refresh);
-document.addEventListener('DOMContentLoaded', () => setTimeout(refresh,100));
-</script>
-</div>
-<footer><small class="mono">FRESH After‑Sales • Static v24</small></footer>
-</body></html>
+  <div class="footer">FRESH After‑Sales • Static v25</div>
+<script defer src="assets/app.js"></script>
+</body>
+</html>

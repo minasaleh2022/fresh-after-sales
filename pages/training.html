@@ -1,42 +1,28 @@
-<!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Training</title>
-<link rel="stylesheet" href="/assets/styles.css"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script defer src="/assets/app.js"></script>
-</head><body>
-
-<header>
-  <div class="logo"><span class="dot"></span><span>FRESH</span> <small class="mono" style="color:#9aa0a6">After‑Sales</small></div>
-  <nav>
-    <a href="/index.html" >Dashboard</a>
-    <a href="/pages/reports/index.html" >Reports</a>
-    <a href="/pages/tech_app.html" >Technician</a>
-    <a href="/pages/customer_app.html" >Customer</a>
-    <a href="/pages/inventory.html" >Inventory</a>
-    <a href="/pages/training.html" >Training</a>
-    <a href="/pages/admin.html" >Admin</a>
+<title>Training • FRESH</title>
+<link rel="stylesheet" href="../assets/styles.css"/></head><body>
+<div class="topbar"><div class="container" style="display:flex;align-items:center;justify-content:space-between">
+  <div class="brand"><span class="logo"></span> FRESH <span class="muted">Training</span></div>
+  <nav class="nav">
+    <a href="../index.html">Dashboard</a><a href="technician.html">Technician</a><a href="customer.html">Customer</a>
+    <a href="inventory.html">Inventory</a><a class="active" href="training.html">Training</a>
+    <a href="reports/index.html">Reports</a><a href="admin.html">Admin</a>
   </nav>
-</header>
-
+</div></div>
 <div class="container">
-
-<div class="panel"><h2>Training – Trainer Effectiveness</h2>
-<div class="grid cols-2">
-  <div class="panel chart-card"><canvas id="score"></canvas></div>
-  <div class="panel chart-card"><canvas id="success"></canvas></div>
+  <div class="grid">
+    <div class="card" style="grid-column:span 12">
+      <div class="section-title">Trainer Effectiveness</div>
+      <div id="trendChart" class="canvas"></div>
+      <table class="table" style="margin-top:12px">
+        <thead><tr><th>Trainer</th><th>Techs Trained</th><th>Courses</th><th>Success</th><th>Avg Score</th></tr></thead>
+        <tbody><tr><td>John Smith</td><td>5</td><td>3</td><td>85%</td><td>78</td></tr>
+               <tr><td>Sarah Johnson</td><td>4</td><td>2</td><td>66%</td><td>82</td></tr></tbody>
+      </table>
+    </div>
+  </div>
 </div>
-<script>
-const s = [58,60,62,65,66,70,72,74,78,82,85,88];
-mkLine(document.getElementById('score'), FRESH.months, s, '#E10600');
-mkBar(document.getElementById('success'), ['Course A','Course B','Course C','Course D','Course E'], [80,85,88,92,91], '#E10600');
-</script>
-</div>
-<footer><small class="mono">FRESH After‑Sales • Static v24</small></footer>
+<div class="footer">FRESH • Training</div>
+<script defer src="../assets/app.js"></script>
 </body></html>

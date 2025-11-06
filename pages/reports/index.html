@@ -1,123 +1,77 @@
-<!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Reports - FRESH</title>
-<link rel="stylesheet" href="/assets/styles.css"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script defer src="/assets/app.js"></script>
-</head><body>
-
-<header>
-  <div class="logo"><span class="dot"></span><span>FRESH</span> <small class="mono" style="color:#9aa0a6">After‑Sales</small></div>
-  <nav>
-    <a href="/index.html" >Dashboard</a>
-    <a href="/pages/reports/index.html" class='active'>Reports</a>
-    <a href="/pages/tech_app.html" >Technician</a>
-    <a href="/pages/customer_app.html" >Customer</a>
-    <a href="/pages/inventory.html" >Inventory</a>
-    <a href="/pages/training.html" >Training</a>
-    <a href="/pages/admin.html" >Admin</a>
+<title>Reports • FRESH</title>
+<link rel="stylesheet" href="../../assets/styles.css"/></head><body>
+<div class="topbar"><div class="container" style="display:flex;align-items:center;justify-content:space-between">
+  <div class="brand"><span class="logo"></span> FRESH <span class="muted">Reports</span></div>
+  <nav class="nav">
+    <a href="../../index.html">Dashboard</a><a href="../technician.html">Technician</a><a href="../customer.html">Customer</a>
+    <a href="../inventory.html">Inventory</a><a href="../training.html">Training</a><a class="active" href="index.html">Reports</a><a href="../admin.html">Admin</a>
   </nav>
-</header>
-
+</div></div>
 <div class="container">
+  <div class="subnav">
+    <a class="active" href="#">Overview</a>
+    <a href="#">CSAT per Region</a>
+    <a href="#">Aging Drilldown</a>
+    <a href="#">WIP</a>
+    <a href="#">Spare Parts Cost</a>
+    <a href="#">Heatmap</a>
+  </div>
 
-<div class="panel">
-  <div class="filters">
-    <select id="f-region"></select>
-    <select id="f-device"></select>
-    <select id="f-branch"></select>
-    <select id="f-month"></select>
-    <button class="btn" id="apply">Apply Filters</button>
+  <div class="grid">
+    <div class="card" style="grid-column:span 6">
+      <div class="section-title">CSAT per Device</div>
+      <div id="csatDevice" class="canvas"></div>
+    </div>
+    <div class="card" style="grid-column:span 6">
+      <div class="section-title">CSAT per Branch</div>
+      <div id="csatBranch" class="canvas"></div>
+    </div>
+
+    <div class="card" style="grid-column:span 12">
+      <div class="section-title">Aging Buckets</div>
+      <table class="table">
+        <thead><tr><th>Bucket</th><th>0‑1d</th><th>2‑3d</th><th>4‑7d</th><th>>7d</th></tr></thead>
+        <tbody><tr><td>Refrigerators</td><td>24</td><td>13</td><td>5</td><td>2</td></tr>
+               <tr><td>Deep Freezer</td><td>12</td><td>9</td><td>4</td><td>1</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="card" style="grid-column:span 6">
+      <div class="section-title">Work‑in‑Progress</div>
+      <div id="wipChart" class="canvas"></div>
+    </div>
+    <div class="card" style="grid-column:span 6">
+      <div class="section-title">Spare Parts Cost</div>
+      <div id="costChart" class="canvas"></div>
+    </div>
+
+    <div class="card" style="grid-column:span 12">
+      <div class="section-title">Heatmap (Egypt governorates) — simplified offline</div>
+      <table class="table"><thead><tr><th>Governorate</th><th>Tickets</th><th>CSAT</th><th>On‑time</th></tr></thead>
+      <tbody><tr><td>Cairo</td><td>312</td><td>4.5</td><td>95%</td></tr>
+             <tr><td>Giza</td><td>260</td><td>4.4</td><td>93%</td></tr>
+             <tr><td>Alexandria</td><td>184</td><td>4.3</td><td>92%</td></tr></tbody></table>
+    </div>
   </div>
 </div>
-
-<div class="grid cols-3" style="margin-top:16px">
-  <div class="panel chart-card"><h3>CSAT by Region</h3><canvas id="csatRegion"></canvas></div>
-  <div class="panel chart-card"><h3>CSAT by Device</h3><canvas id="csatDevice"></canvas></div>
-  <div class="panel chart-card"><h3>On‑time %</h3><canvas id="ontime"></canvas></div>
-</div>
-
-<div class="grid cols-3" style="margin-top:16px">
-  <div class="panel chart-card"><h3>Revisit %</h3><canvas id="revisit"></canvas></div>
-  <div class="panel chart-card"><h3>Spare Parts Cost by Device</h3><canvas id="partsDevice"></canvas></div>
-  <div class="panel chart-card"><h3>Aging Buckets</h3><canvas id="agingBuckets"></canvas></div>
-</div>
-
-<div class="panel" style="margin-top:16px">
-  <h3>Heatmap (CSAT) – Egypt</h3>
-  <div id="map" class="map"></div>
-</div>
-
+<div class="footer">FRESH • Reports</div>
+<script defer src="../../assets/app.js"></script>
 <script>
-let c1,c2,c3,c4,c5,c6,map,layer;
-function toBarPairs(list){ return {labels:list.map(x=>x.name), values:list.map(x=>x.value)}; }
-
-function refresh(){
-  const f = readFilters();
-  const rows = FRESH.applyFilters(FRESH.tickets, f);
-  const partRows = FRESH.applyFilters(FRESH.parts, f);
-
-  let r1 = toBarPairs(FRESH.aggregateCSATBy('region', rows));
-  c1 && c1.destroy(); c1 = mkBar(document.getElementById('csatRegion'), r1.labels, r1.values, '#E10600');
-
-  let r2 = toBarPairs(FRESH.aggregateCSATBy('device', rows));
-  c2 && c2.destroy(); c2 = mkBar(document.getElementById('csatDevice'), r2.labels, r2.values, '#1e88e5');
-
-  // On-time & Revisit by month
-  const months = FRESH.months;
-  const ontime = months.map((_,i)=>{
-    const m = rows.filter(r=>r.month===i);
-    return FRESH.pctOnTime(m);
-  });
-  c3 && c3.destroy(); c3 = mkLine(document.getElementById('ontime'), months, ontime, '#22c55e');
-
-  const revisit = months.map((_,i)=>{
-    const m = rows.filter(r=>r.month===i);
-    return FRESH.pctRevisit(m);
-  });
-  c4 && c4.destroy(); c4 = mkLine(document.getElementById('revisit'), months, revisit, '#ef4444');
-
-  // parts cost
-  let p1 = toBarPairs(FRESH.partsCostBy('device', partRows));
-  c5 && c5.destroy(); c5 = mkBar(document.getElementById('partsDevice'), p1.labels, p1.values, '#f59e0b');
-
-  // aging buckets
-  const ag = FRESH.agingBuckets(rows);
-  c6 && c6.destroy(); c6 = mkDoughnut(document.getElementById('agingBuckets'), Object.keys(ag), Object.values(ag));
-
-  // map
-  if(!map){
-    map = L.map('map').setView([30.1, 31.3], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18}).addTo(map);
-  }
-  if(layer){ layer.remove(); }
-  const geo = {
-    "Cairo":[30.0444,31.2357],"Giza":[29.987,31.2118],"Alex":[31.2001,29.9187],
-    "Sharqia":[30.732,31.714],"Dakahlia":[31.0409,31.3807],"Qalyubia":[30.4158,31.562],
-    "Gharbia":[30.8754,31.0335],"Menoufia":[30.5972,30.9877],"Ismailia":[30.5965,32.2715],"Suez":[29.9668,32.5498]
-  };
-  const csatByRegion = FRESH.aggregateCSATBy('region', rows);
-  layer = L.layerGroup();
-  csatByRegion.forEach(it=>{
-    const latlng = geo[it.name]; if(!latlng) return;
-    const radius = 5000 + (it.value-70)*200; // scale
-    const color = it.value>=90 ? '#22c55e' : it.value>=80 ? '#f59e0b' : '#ef4444';
-    const circle = L.circle(latlng, {radius, color, fillColor: color, fillOpacity:.35, weight:1})
-      .bindPopup(`<b>${it.name}</b><br/>CSAT: ${it.value}%`);
-    layer.addLayer(circle);
-  });
-  layer.addTo(map);
-}
-
-document.getElementById('apply').addEventListener('click', refresh);
-document.addEventListener('DOMContentLoaded', () => setTimeout(refresh,100));
+document.addEventListener('DOMContentLoaded',()=>{
+  drawBarChart('csatDevice',[
+    {label:'REF',value:4.5},{label:'DF',value:4.3},{label:'WD',value:4.2},{label:'Mini',value:4.1}
+  ]);
+  drawBarChart('csatBranch',[
+    {label:'Cairo',value:4.6},{label:'Giza',value:4.4},{label:'Alex',value:4.3},{label:'Sharqia',value:4.2}
+  ]);
+  drawBarChart('wipChart',[
+    {label:'Assigned',value:140},{label:'Scheduled',value:220},{label:'In Route',value:88},{label:'Working',value:66}
+  ]);
+  drawBarChart('costChart',[
+    {label:'REF',value:120000},{label:'DF',value:82000},{label:'WD',value:36000}
+  ]);
+});
 </script>
-</div>
-<footer><small class="mono">FRESH After‑Sales • Static v24</small></footer>
 </body></html>

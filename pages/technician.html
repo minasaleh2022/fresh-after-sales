@@ -1,0 +1,58 @@
+<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Technician • FRESH</title>
+<link rel="stylesheet" href="../assets/styles.css"/></head><body>
+<div class="topbar"><div class="container" style="display:flex;align-items:center;justify-content:space-between">
+  <div class="brand"><span class="logo"></span> FRESH <span class="muted">Technician</span></div>
+  <nav class="nav">
+    <a href="../index.html">Dashboard</a>
+    <a class="active" href="technician.html">Technician</a>
+    <a href="customer.html">Customer</a>
+    <a href="inventory.html">Inventory</a>
+    <a href="training.html">Training</a>
+    <a href="reports/index.html">Reports</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</div></div>
+
+<div class="container">
+  <div class="subnav">
+    <a class="active" href="#">My Day</a>
+    <a href="#">Attendance</a>
+    <a href="#">Salary by Tickets</a>
+    <a href="#">Leaves</a>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="grid-column:span 4">
+      <div class="kpi"><div class="icon">📍</div><div><div class="value">7</div><div class="muted">Visits Today</div></div></div>
+    </div>
+    <div class="card" style="grid-column:span 4">
+      <div class="kpi"><div class="icon">⏱</div><div><div class="value">92%</div><div class="muted">On‑Time</div></div></div>
+    </div>
+    <div class="card" style="grid-column:span 4">
+      <div class="kpi"><div class="icon">💸</div><div><div class="value">1,150</div><div class="muted">EGP (Today)</div></div></div>
+    </div>
+
+    <div class="card" style="grid-column:span 12">
+      <div class="section-title">Today Route</div>
+      <div class="muted">Interactive map placeholder (offline). Route: Nasr City → New Cairo → Maadi → Helwan.</div>
+      <div class="canvas"></div>
+    </div>
+
+    <div class="card" style="grid-column:span 12">
+      <div class="section-title">Assigned Tickets</div>
+      <table class="table">
+        <thead><tr><th>Ticket</th><th>Customer</th><th>Device</th><th>Area</th><th>Slot</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>#100251</td><td>Omar A.</td><td>REF 450L</td><td>Nasr City</td><td>9‑11am</td><td><span class="badge">In‑route</span></td></tr>
+          <tr><td>#100252</td><td>Sarah M.</td><td>DF Chest</td><td>New Cairo</td><td>11‑1pm</td><td><span class="badge">Scheduled</span></td></tr>
+          <tr><td>#100253</td><td>Ali F.</td><td>Water Dispenser</td><td>Maadi</td><td>2‑4pm</td><td><span class="badge">Scheduled</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="footer">FRESH • Technician</div>
+<script defer src="../assets/app.js"></script>
+</body></html>
