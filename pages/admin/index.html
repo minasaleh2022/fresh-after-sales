@@ -1,7 +1,7 @@
 <!doctype html><html lang="ar" dir="rtl">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Reports - FRESH</title><link rel="stylesheet" href="/assets/styles.css"/></head>
-<body data-page="reports"><div class="app">
+<title>Admin - FRESH</title><link rel="stylesheet" href="/assets/styles.css"/></head>
+<body data-page="admin"><div class="app">
     <div class="top">
       <div class="brand"><span class="logo"></span><h1>FRESH After‑Sales</h1></div>
       <nav class="nav">
@@ -28,34 +28,16 @@
       </div>
     </div>
     
-<div class="tabbar">
-  <button class="badge">Overview</button>
-  <button class="badge">CSAT per Branch</button>
-  <button class="badge">CSAT per Device</button>
-  <button class="badge">CSAT per Region</button>
-  <button class="badge">WIP</button>
-  <button class="badge">Spare Parts Cost</button>
-  <button class="badge">Heatmap</button>
-</div>
 <div class="grid2">
-  <div class="card">
-    <h3>CSAT per Branch</h3>
-    <table class="table" id="tbl-branch">
-      <thead><tr><th>Branch</th><th>Tickets</th><th>CSAT</th><th>Parts Cost</th></tr></thead>
-      <tbody></tbody>
-    </table>
+  <div class="card"><h3>Add Branch</h3>
+    <form id="formBranch" class="row"><input placeholder="New Branch"><button class="primary">Add</button></form>
   </div>
-  <div class="card">
-    <h3>CSAT per Device</h3>
-    <table class="table" id="tbl-device">
-      <thead><tr><th>Device</th><th>Tickets</th><th>CSAT</th><th>Parts Cost</th></tr></thead>
-      <tbody></tbody>
-    </table>
+  <div class="card"><h3>Add Device</h3>
+    <form id="formDevice" class="row"><input placeholder="New Device"><button class="primary">Add</button></form>
   </div>
 </div>
 <div class="card" style="margin-top:12px">
-  <h3>Heatmap (Regions × Devices)</h3>
-  <table class="table" id="heat"></table>
+  <button id="resetDemo" class="warn">Reset Demo Data</button>
 </div>
 
 <footer>v28 • Static Demo • يعمل بدون باك إند – أي تعديل من Admin ينعكس على باقي الصفحات عبر localStorage</footer>
